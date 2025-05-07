@@ -106,24 +106,22 @@ const RangeDatePicker = ({
 
   // Manejo de la selección de fechas
   const handleDateSelect = (date) => {
-    if (!date || disabled) return;
+    if (!date || disabled)
+      return;
 
     // Evitar seleccionar fechas pasadas
-    if (date < today && date.getDate() !== today.getDate()) return;
+    if (date < today && date.getDate() !== today.getDate())
+      return;
 
     let newRange;
 
-    // Lógica para seleccionar el rango
+    // Determinar el rango
     if (!value.startDate || (value.startDate && value.endDate)) {
-      // Si no hay fecha de inicio o ya hay un rango completo, empezar nuevo rango
       newRange = { startDate: date, endDate: null };
     } else {
-      // Si hay fecha de inicio pero no de fin
       if (date < value.startDate) {
-        // Si la nueva fecha es anterior a la fecha de inicio, invertir el orden
         newRange = { startDate: date, endDate: value.startDate };
       } else {
-        // Establecer la fecha de fin
         newRange = { ...value, endDate: date };
       }
     }
@@ -167,16 +165,17 @@ const RangeDatePicker = ({
 
   // Formatear la visualización del rango de fechas
   const getDisplayValue = () => {
-    if (!value.startDate) return placeholder;
+    if (!value.startDate)
+      return placeholder;
 
     const start = formatDate(value.startDate);
 
-    if (!value.endDate) return `${start} - Seleccionar fecha final`;
-
-    const nights = calculateNights(value.startDate, value.endDate);
+    if (!value.endDate)
+      return `${start} - ?`;
 
     const end = formatDate(value.endDate);
-    return `${start} - ${end} (${nights} noche${nights > 1 ? "s" : ""})`;
+
+    return `${start} - ${end}`;
   };
 
   // Función para limpiar la selección
@@ -201,7 +200,7 @@ const RangeDatePicker = ({
     setIsOpen(false);
   };
 
-  // Cerrar el calendario al hacer clic fuera
+  // Esta seccion cierra el calendario al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       const calendar = document.getElementById("calendar-container");
@@ -307,7 +306,7 @@ const RangeDatePicker = ({
 
               // Determinar clases condicionales
               let dayClasses =
-                "h-10 w-10 flex items-center justify-center rounded-full text-sm";
+                "h-9 w-9 flex items-center justify-center rounded-full text-sm";
 
               if (!day) {
                 dayClasses += " opacity-0 cursor-default";
@@ -371,13 +370,13 @@ const DatePicker = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg p-8">
+    <div className="flex flex-col items-center justify-center rounded-lg">
       {/* Uso del componente */}
       <div className="w-full max-w-md">
         <RangeDatePicker
           value={dateRange}
           onChange={handleDateChange}
-          placeholder="Selecciona tus fechas"
+          placeholder="Elige tus fechas"
         />
       </div>
     </div>
