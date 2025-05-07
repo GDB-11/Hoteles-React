@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function Clock() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -9,11 +9,11 @@ function Clock() {
   }, []);
 
   return (
-    <span className="text-sm font-medium tabular-nums text-amber-100">
-      {currentTime.toLocaleTimeString('es-PE', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
+    <span className="text-sm font-medium text-amber-100 tabular-nums">
+      {currentTime.toLocaleTimeString("es-PE", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
       })}
     </span>
   );
