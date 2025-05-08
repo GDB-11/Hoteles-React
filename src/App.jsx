@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import NavBar from "./components/shared/NavBar";
 import Footer from "./components/shared/Footer";
 import Contact from "./pages/contact/Contact";
+import Offers from "./pages/offers/Offers";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contacto" element={<Contact />}/>
+            <Route path="/promociones" element={<Offers />}/>
             <Route
               path="*"
               element={
