@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
-import { calculateNights } from "../../helpers/DateHelper";
+import { calculateNights, isSameDate } from "../../helpers/DateHelper";
 
 const RangeDatePicker = ({
   value = { startDate: null, endDate: null },
@@ -121,7 +121,10 @@ const RangeDatePicker = ({
     } else {
       if (date < value.startDate) {
         newRange = { startDate: date, endDate: value.startDate };
-      } else {
+      } else if (isSameDate(date, value.startDate)) {
+        // Si la fecha seleccionada es igual a la fecha de inicio, no hacer nada
+        return;
+      }else {
         newRange = { ...value, endDate: date };
       }
     }
@@ -143,6 +146,10 @@ const RangeDatePicker = ({
 
     if (!value.endDate) {
       return date.getTime() === value.startDate.getTime();
+    }
+
+    if (!value.endDate) {
+      return isSameDate(date, value.startDate);
     }
 
     return date >= value.startDate && date <= value.endDate;
@@ -242,7 +249,7 @@ const RangeDatePicker = ({
     <div className={`relative w-full ${className}`}>
       {/* Input para mostrar el rango seleccionado */}
       <div
-        className={`date-picker-input flex w-full cursor-pointer items-center rounded-lg border bg-white p-3 shadow-sm focus:ring-2 focus:ring-amber-700 focus:outline-none ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
+        className={`date-picker-input flex w-full cursor-pointer items-center rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:ring-2 focus:ring-amber-700 focus:outline-none ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
       >
         <Calendar className="mr-2 h-5 w-5 text-amber-700" />
@@ -303,6 +310,8 @@ const RangeDatePicker = ({
               const isPast = date && date < today && !isToday;
               const inRange = date && isInRange(date);
               const isStartOrEnd = date && isStartOrEndDate(date);
+              const isSameAsStart = date && value.startDate && isSameDate(date, value.startDate);
+              const isDisabledSameDate = value.startDate && !value.endDate && isSameAsStart;
 
               // Determinar clases condicionales
               let dayClasses =
@@ -312,6 +321,8 @@ const RangeDatePicker = ({
                 dayClasses += " opacity-0 cursor-default";
               } else if (isPast) {
                 dayClasses += " text-gray-300 cursor-not-allowed";
+              } else if (isDisabledSameDate) {
+                dayClasses += " bg-amber-700 text-white font-semibold cursor-not-allowed";
               } else if (isStartOrEnd) {
                 dayClasses += " bg-amber-700 text-white font-semibold";
               } else if (inRange) {
@@ -327,7 +338,7 @@ const RangeDatePicker = ({
                 <div
                   key={index}
                   className={dayClasses}
-                  onClick={() => handleDateSelect(date)}
+                  onClick={() => !isDisabledSameDate && handleDateSelect(date)}
                 >
                   {day}
                 </div>

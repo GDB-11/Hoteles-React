@@ -143,7 +143,7 @@ function NavBar() {
       </nav>
 
       {/* Formulario de búsqueda */}
-      <div className="bg-amber-200 py-6 px-8 shadow-md">
+      <div className="bg-amber-200 py-4 px-8 shadow-md">
         <form 
           onSubmit={handleSearch}
           className="mx-auto max-w-6xl"
