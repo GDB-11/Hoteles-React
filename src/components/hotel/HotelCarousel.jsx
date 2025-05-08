@@ -123,7 +123,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
         
         {/* Previous button */}
         <button
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-30 hover:bg-opacity-50 backdrop-blur-sm transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-30 hover:bg-opacity-50 backdrop-blur-sm transition-all cursor-pointer"
           onClick={prevSlide}
           aria-label="Anterior"
         >
@@ -132,7 +132,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
         
         {/* Next button */}
         <button
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-30 hover:bg-opacity-50 backdrop-blur-sm transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-30 hover:bg-opacity-50 backdrop-blur-sm transition-all cursor-pointer"
           onClick={nextSlide}
           aria-label="Siguiente"
         >
@@ -145,7 +145,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
+              className={`w-3 h-3 rounded-full transition-all cursor-pointer ${
                 index === currentIndex 
                   ? 'bg-white scale-125' 
                   : 'bg-white bg-opacity-50 hover:bg-opacity-75'
