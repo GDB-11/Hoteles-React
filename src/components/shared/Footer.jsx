@@ -17,7 +17,7 @@ function Footer() {
 
       <div className="grid grid-cols-3 p-4">
         <div>
-          <h4 className="text-lg font-bold">Destinos</h4>
+          <h4 className="text-lg font-bold">Sedes</h4>
           <ul className="space-y-1 opacity-80">
             <li>Asunción</li>
             <li>Bagua</li>

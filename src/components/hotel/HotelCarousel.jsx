@@ -36,7 +36,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
     },
     {
       src: "https://bookyourluxuryhotelsuite.com/wp-content/uploads/2018/11/Ambassador_Suite_Hotel_Principe.jpg",
-      alt: "Suite",
+      alt: "Suite de lujo",
       caption: "Lujo y comodidad en nuestras habitaciones premium"
     }
   ];
