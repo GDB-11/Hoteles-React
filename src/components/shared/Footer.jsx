@@ -26,7 +26,7 @@ function Footer() {
             <li>Casma</li>
             <li>Chachapoyas</li>
             <li>Huaraz</li>
-            <li>Utcubamba</li>
+            
           </ul>
         </div>
 
