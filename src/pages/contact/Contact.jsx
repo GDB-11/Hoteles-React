@@ -1,6 +1,6 @@
 // Importamos los hooks y componentes necesarios
 import { useState } from 'react'; // Necesitamos importar useState incluso si no importamos React
-import './../../'; // Estilos del componente
+import './Contact.css'; // Estilos del componente
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 // Definición del componente como función declarativa
