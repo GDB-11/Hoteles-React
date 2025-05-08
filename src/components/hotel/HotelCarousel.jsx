@@ -25,24 +25,19 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
       caption: "Estamos comprometidos con tu comodidad"
     },
     {
-      src: "/api/placeholder/1200/600",
-      alt: "Hospedaje y Sabor Cusco",
-      caption: "Disfruta de la ciudad imperial con vistas espectaculares"
+      src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWxzfGVufDB8fDB8fHww",
+      alt: "Piscinas",
+      caption: "Contamos con las mejores instalaciones"
     },
     {
-      src: "/api/placeholder/1200/600",
+      src: "https://images.unsplash.com/photo-1703565426315-4209c2e88eea?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjByZXN0YXVyYW50fGVufDB8fDB8fHww",
       alt: "Restaurante Gourmet",
       caption: "Experimenta la mejor gastronomía peruana en nuestros restaurantes"
     },
     {
-      src: "/api/placeholder/1200/600",
-      alt: "Suite Presidencial",
+      src: "https://bookyourluxuryhotelsuite.com/wp-content/uploads/2018/11/Ambassador_Suite_Hotel_Principe.jpg",
+      alt: "Suite",
       caption: "Lujo y comodidad en nuestras habitaciones premium"
-    },
-    {
-      src: "/api/placeholder/1200/600",
-      alt: "Experiencias Culturales",
-      caption: "Actividades exclusivas que conectan con la cultura local"
     }
   ];
 

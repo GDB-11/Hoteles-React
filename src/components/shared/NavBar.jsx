@@ -32,19 +32,14 @@ function NavBar() {
     "Standard Simple",
     "Standard Doble",
     "Superior Queen",
-    "Standard King",
-    "Standard Twin",
-    "Económica Full",
-    "Junior Suite California King",
-    "Habitación con Litera",
-    "Basic Studio",
-    "Habitación Sofá Cama",
+    "Superior King",
+    "Junior Suite California King"
   ];
 
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "Habitaciones", href: "#" },
-    { name: "Reservas", href: "#" },
+    { name: "Promociones", href: "/promociones" },
     { name: "Contacto", href: "/contacto" },
   ];
 
