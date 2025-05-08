@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Clock from "./Clock";
 import RangeDatePicker from "./RangeDatePicker";
 
@@ -42,10 +42,10 @@ function NavBar() {
   ];
 
   const navLinks = [
-    { name: "Inicio", href: "#" },
+    { name: "Inicio", href: "/" },
     { name: "Habitaciones", href: "#" },
     { name: "Reservas", href: "#" },
-    { name: "Contacto", href: "#" },
+    { name: "Contacto", href: "/contacto" },
   ];
 
   // Maneja cambios en los selects
@@ -161,7 +161,7 @@ function NavBar() {
                 name="sede"
                 value={searchParams.sede}
                 onChange={handleSelectChange}
-                className="w-full rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                className="w-full rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none cursor-pointer"
               >
                 <option value="">Todas las sedes</option>
                 {sedes.map((sede) => (
@@ -182,7 +182,7 @@ function NavBar() {
                 name="tipoHabitacion"
                 value={searchParams.tipoHabitacion}
                 onChange={handleSelectChange}
-                className="w-full rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                className="w-full rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none cursor-pointer"
               >
                 <option value="">Todos los tipos</option>
                 {tiposHabitacion.map((tipo) => (
@@ -210,7 +210,7 @@ function NavBar() {
             <div>
               <button
                 type="submit"
-                className="w-full md:w-auto rounded-lg bg-amber-700 px-6 py-3 text-white font-medium shadow-sm hover:bg-amber-800 transition-colors duration-300 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                className="w-full md:w-auto rounded-lg bg-amber-700 px-6 py-3 text-white font-medium shadow-sm hover:bg-amber-800 transition-colors duration-300 focus:ring-2 focus:ring-amber-500 focus:outline-none cursor-pointer"
               >
                 Buscar Habitaciones
               </button>
