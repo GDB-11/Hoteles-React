@@ -127,7 +127,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
           onClick={prevSlide}
           aria-label="Anterior"
         >
-          <ChevronLeft size={24} color={colors.white} />
+          <ChevronLeft size={24} color={colors.primary} />
         </button>
         
         {/* Next button */}
@@ -136,7 +136,7 @@ const HotelCarousel = ({ images, autoPlayInterval = 5000, showCaption = true }) 
           onClick={nextSlide}
           aria-label="Siguiente"
         >
-          <ChevronRight size={24} color={colors.white} />
+          <ChevronRight size={24} color={colors.primary} />
         </button>
         
         {/* Indicators/dots */}
