@@ -3,6 +3,9 @@ import RangeDatePicker from "../../components/shared/RangeDatePicker";
 import colors from "../../helpers/ColorsHelper.js";
 import GuestSelector from "./GuestSelector.jsx";
 import LocationSelector from "./LocationSelector.jsx";
+import { useReservation } from "../../contexts/ApiContext";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function BookingCard({
     price,
@@ -15,8 +18,13 @@ function BookingCard({
     locations,
     selectedLocation,
     onLocationChange,
-    calculateTotalPrice
+    calculateTotalPrice,
+    roomName,
+    roomId
 }) {
+    const { addReservation } = useReservation();
+    const navigate = useNavigate();
+
     const handleGuestsChange = (increment) => {
         onGuestsChange(increment);
     };
@@ -24,6 +32,49 @@ function BookingCard({
     const isFormValid = () => {
         return dateRange.startDate && dateRange.endDate && selectedLocation;
     }
+
+    const handleReservation = () => {
+        if (!isFormValid()) {
+            Swal.fire({
+                title: 'Información incompleta',
+                text: 'Por favor complete todos los campos para continuar con la reserva.',
+                icon: 'warning',
+                confirmButtonColor: colors.primary
+            });
+            return;
+        }
+
+        // Crear un objeto de reserva con toda la información necesaria
+        const newReservation = {
+            id: Date.now().toString(), // ID único basado en timestamp
+            roomId,
+            roomName,
+            location: selectedLocation,
+            guests,
+            dateRange: {
+                startDate: dateRange.startDate,
+                endDate: dateRange.endDate
+            },
+            nights,
+            price,
+            totalPrice: calculateTotalPrice(),
+            createdAt: new Date()
+        };
+
+        // Agregar la reserva al contexto
+        addReservation(newReservation);
+        
+        // Mostrar confirmación al usuario con SweetAlert2
+        Swal.fire({
+            title: '¡Reserva exitosa!',
+            text: `Se agregó "${roomName}" en ${selectedLocation} por ${nights} ${nights === 1 ? 'noche' : 'noches'}.`,
+            icon: 'success',
+            confirmButtonColor: colors.primary
+        }).then(() => {
+            // Redirigir al usuario a la página principal una vez que cierre el SweetAlert
+            navigate("/");
+        });
+    };
 
     return (
         <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
@@ -62,6 +113,7 @@ function BookingCard({
                     type="button"
                     className="w-full py-3 rounded-full text-white font-medium text-center transition-all hover:bg-amber-700 active:scale-[0.98] cursor-pointer"
                     style={{ backgroundColor: colors.primary }}
+                    onClick={handleReservation}
                 >
                     Reservar Ahora
                 </button>

@@ -1,17 +1,16 @@
-// contexts/ApiContext.jsx
 import { createContext, useState, useContext } from "react";
 
-// Creamos un contexto para todas las APIs
+// Contexto para todas las APIs
 const ApiContext = createContext();
 
 export const ApiProvider = ({ children }) => {
   // Data modelo para hotel (tipod de habitaciones)
   const [hotelData, setHotelData] = useState({
-    habitaciones: [],    
+    habitaciones: [],
     isLoading: false,
     error: null
   });
-  
+
   // Data modelo para sedes (sedes y ubicaciones)
   const [sedeData, setSedeData] = useState({
     sedes: [],
@@ -19,7 +18,14 @@ export const ApiProvider = ({ children }) => {
     isLoading: false,
     error: null
   });
-  
+
+  // Data modelo para reservaciones
+  const [reservationData, setReservationData] = useState({
+    reservations: [],
+    isLoading: false,
+    error: null
+  });
+
   // Función para cargar datos de hotel
   const fetchHotelData = async () => {
     try {
@@ -27,15 +33,15 @@ export const ApiProvider = ({ children }) => {
 
       //Obtener data de habitaciones
       const response = await fetch('https://api.npoint.io/96f8b8f82e6b78454da7');
-      
+
       if (!response.ok) {
         throw new Error(`Error HTTP tipos habitación: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       setHotelData({
-        habitaciones: data.tiposHabitacion,        
+        habitaciones: data.tiposHabitacion,
         isLoading: false,
         error: null
       });
@@ -48,23 +54,23 @@ export const ApiProvider = ({ children }) => {
       console.error("Error al obtener datos:", err);
     }
   };
-  
+
   // Función para cargar datos de las sedes
   const fetchSedesData = async () => {
     try {
-        setSedeData(prev => ({ ...prev, isLoading: true }));
-      
+      setSedeData(prev => ({ ...prev, isLoading: true }));
+
       //obtener sedes
       const response = await fetch('https://api.npoint.io/b563e00799e6608408a3');
-      
+
       if (!response.ok) {
         throw new Error(`Error HTTP tipos habitación: ${response.status}`);
       }
-      
+
       const data = await response.json();
       const sedes = [...new Set(data.sedes.map(s => s.nombre))];
       const ubicaciones = [...new Set(data.sedes.map(s => s.ubicacion))];
-      
+
       setSedeData({
         sedes: sedes,
         ubicaciones: ubicaciones,
@@ -72,17 +78,43 @@ export const ApiProvider = ({ children }) => {
         error: null
       });
     } catch (err) {
-        setSedeData(prev => ({
+      setSedeData(prev => ({
         ...prev,
         isLoading: false,
         error: err.message
       }));
     }
   };
-  
+
+  // Funciones para manejar las reservaciones
+  const addReservation = (reservation) => {
+    setReservationData(prev => ({
+      ...prev,
+      reservations: [...prev.reservations, reservation]
+    }));
+  };
+
+  const removeReservation = (reservationId) => {
+    setReservationData(prev => ({
+      ...prev,
+      reservations: prev.reservations.filter(res => res.id !== reservationId)
+    }));
+  };
+
+  const clearReservations = () => {
+    setReservationData(prev => ({
+      ...prev,
+      reservations: []
+    }));
+  };
+
+  const getReservationCount = () => {
+    return reservationData.reservations.length;
+  };
+
   return (
-    <ApiContext.Provider 
-      value={{ 
+    <ApiContext.Provider
+      value={{
         hotel: {
           ...hotelData,
           fetchData: fetchHotelData
@@ -90,6 +122,13 @@ export const ApiProvider = ({ children }) => {
         sede: {
           ...sedeData,
           fetchData: fetchSedesData
+        },
+        reservation: {
+          ...reservationData,
+          addReservation,
+          removeReservation,
+          clearReservations,
+          getReservationCount
         }
       }}
     >
@@ -107,4 +146,9 @@ export const useHotelData = () => {
 export const useSedeData = () => {
   const { sede } = useContext(ApiContext);
   return sede;
+};
+
+export const useReservation = () => {
+  const { reservation } = useContext(ApiContext);
+  return reservation;
 };

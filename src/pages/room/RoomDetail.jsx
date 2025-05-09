@@ -168,6 +168,8 @@ function RoomDetail() {
                             selectedLocation={selectedLocation}
                             onLocationChange={handleLocationChange}
                             calculateTotalPrice={calculateTotalPrice}
+                            roomName={habitacion.name}
+                            roomId={habitacion.id}
                         />
                     </div>
                 </div>
