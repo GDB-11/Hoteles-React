@@ -106,12 +106,10 @@ const RangeDatePicker = ({
 
   // Manejo de la selección de fechas
   const handleDateSelect = (date) => {
-    if (!date || disabled)
-      return;
+    if (!date || disabled) return;
 
     // Evitar seleccionar fechas pasadas
-    if (date < today && date.getDate() !== today.getDate())
-      return;
+    if (date < today && date.getDate() !== today.getDate()) return;
 
     let newRange;
 
@@ -124,7 +122,7 @@ const RangeDatePicker = ({
       } else if (isSameDate(date, value.startDate)) {
         // Si la fecha seleccionada es igual a la fecha de inicio, no hacer nada
         return;
-      }else {
+      } else {
         newRange = { ...value, endDate: date };
       }
     }
@@ -172,13 +170,11 @@ const RangeDatePicker = ({
 
   // Formatear la visualización del rango de fechas
   const getDisplayValue = () => {
-    if (!value.startDate)
-      return placeholder;
+    if (!value.startDate) return placeholder;
 
     const start = formatDate(value.startDate);
 
-    if (!value.endDate)
-      return `${start} - ?`;
+    if (!value.endDate) return `${start} - ?`;
 
     const end = formatDate(value.endDate);
 
@@ -310,8 +306,10 @@ const RangeDatePicker = ({
               const isPast = date && date < today && !isToday;
               const inRange = date && isInRange(date);
               const isStartOrEnd = date && isStartOrEndDate(date);
-              const isSameAsStart = date && value.startDate && isSameDate(date, value.startDate);
-              const isDisabledSameDate = value.startDate && !value.endDate && isSameAsStart;
+              const isSameAsStart =
+                date && value.startDate && isSameDate(date, value.startDate);
+              const isDisabledSameDate =
+                value.startDate && !value.endDate && isSameAsStart;
 
               // Determinar clases condicionales
               let dayClasses =
@@ -322,7 +320,8 @@ const RangeDatePicker = ({
               } else if (isPast) {
                 dayClasses += " text-gray-300 cursor-not-allowed";
               } else if (isDisabledSameDate) {
-                dayClasses += " bg-amber-700 text-white font-semibold cursor-not-allowed";
+                dayClasses +=
+                  " bg-amber-700 text-white font-semibold cursor-not-allowed";
               } else if (isStartOrEnd) {
                 dayClasses += " bg-amber-700 text-white font-semibold";
               } else if (inRange) {

@@ -1,36 +1,57 @@
-import { useState } from "react";
+import { useHotelData } from "../../contexts/ApiContext";
 import SuiteCard from "../../components/hotel/SuiteCard";
 import HotelCarousel from "../../components/hotel/HotelCarousel";
 
 function Home() {
-  const [count, setCount] = useState(0);
-
-  const tiposHabitacion = [
-    { id: "01-STD-S", name: "Standard Simple", url: "https://hoteloroverdesuitesiquitos.com/wp-content/uploads/2021/07/Simple-1-1-scaled.jpg", price: 120, detailsUrl: "habitacion/01-STD-S", amenities: ["1 persona", "Servicios básicos", "TV estándar"] },
-    { id: "02-STD-D", name: "Standard Doble", url: "https://losgavilaneshotel.com/wp-content/uploads/2023/09/01-7.jpg", price: 150, detailsUrl: "habitacion/02-STD-D", amenities: ["2 personas", "Servicios básicos", "TV estándar"] },
-    { id: "03-SUP-Q", name: "Superior Queen", url: "https://vizahotel.com/images/rooms/matrimonial-queen/img1.jpg", price: 180, detailsUrl: "habitacion/03-SUP-Q", amenities: ["2 personas", "Servicios básicos", "Smart TV"] },
-    { id: "04-STD-K", name: "Superior King", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBY5n0_QIe3TwIkg4vWKvCqOG466-1wWq9g&s", price: 200, detailsUrl: "habitacion/04-STD-K", amenities: ["2 personas", "Servicios básicos", "Smart TV"] },
-    { id: "07-JRS-CK", name: "Junior Suite California King", url: "https://e00-telva.uecdn.es/imagenes/2015/05/12/estilo_de_vida/1431423946_17_625.jpg", price: 500, detailsUrl: "habitacion/07-JRS-CK", amenities: ["2 personas", "100% lujo", "Preferencial"] },
-  ];
+  const { habitaciones, isLoading, error } = useHotelData();
 
   return (
-  <>
-    <section className="p-6">
-      <HotelCarousel />
-      <div className="flex justify-center gap-4">
-        {tiposHabitacion.map((tipo) => (
-          <SuiteCard
-            title={tipo.name}
-            imageUrl={tipo.url}
-            pricePerNight={tipo.price}
-            detailsUrl={tipo.detailsUrl}
-            amenities={tipo.amenities}
-          />
-        ))}
+    <>
+      <section className="p-6">
+        <HotelCarousel />
         
-      </div>      
-    </section>
-  </>);
+        <h2 className="text-3xl font-bold text-center my-8" style={{color: '#332211'}}>
+          Nuestras Habitaciones
+        </h2>
+        
+        {isLoading ? (
+          <div className="flex flex-col justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{borderColor: '#bb4d00'}}></div>
+            <p className="mt-4 text-center text-gray-600">Cargando habitaciones...</p>
+          </div>
+        ) : error ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="text-red-600 text-center">
+              <h2 className="text-xl font-bold mb-2">Error al cargar las habitaciones</h2>
+              <p>{error}</p>
+              <button 
+                className="mt-4 px-4 py-2 text-white rounded-md"
+                style={{backgroundColor: '#bb4d00'}}
+                onClick={() => window.location.reload()}
+              >
+                Reintentar
+              </button>
+            </div>
+          </div>
+        ) : !habitaciones || habitaciones.length === 0 ? (
+          <p className="text-center">No hay habitaciones disponibles en este momento.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {habitaciones.map((habitacion) => (
+              <SuiteCard
+                key={habitacion.id}
+                title={habitacion.name}
+                imageUrl={habitacion.url}
+                pricePerNight={habitacion.price}
+                detailsUrl={habitacion.detailsUrl}
+                amenities={habitacion.amenities}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+    </>
+  );
 }
 
 export default Home;
