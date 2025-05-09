@@ -46,7 +46,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="sticky z-10 flex w-full items-center justify-between bg-gradient-to-r from-amber-700 to-amber-900 px-8 py-4 text-amber-50 shadow-lg">
+      <nav className="sticky z-50 flex w-full items-center justify-between bg-gradient-to-r from-amber-700 to-amber-900 px-8 py-4 text-amber-50 shadow-lg">
         {/* Sección Izquierda: Logo/Nombre de la Marca */}
         <NavBarLogo />
         
@@ -99,7 +99,7 @@ function NavBar() {
             
             {/* Dropdown de Reservas */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-100">
+              <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   <div className="px-4 py-2 border-b border-gray-200">
                     <h3 className="font-bold text-gray-900">Mis Reservas</h3>
@@ -122,7 +122,7 @@ function NavBar() {
                                   {formatDate(reservation.dateRange.startDate)} - {formatDate(reservation.dateRange.endDate)}
                                 </p>
                                 <p className="text-xs text-gray-600">
-                                  {reservation.guests} huéspedes, {reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'}
+                                  {reservation.guests} {reservation.guests === 1 ? "huésped" : "huéspedes"}, {reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'}
                                 </p>
                               </div>
                               <div className="flex flex-col items-end">

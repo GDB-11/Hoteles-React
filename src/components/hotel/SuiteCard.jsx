@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function SuiteCard({
   title = "",
@@ -54,12 +55,12 @@ function SuiteCard({
 
         {/* Botón de detalles */}
         <div className="mt-4">
-          <a
-            href={detailsUrl}
+          <Link
+            to={detailsUrl}
             className="block w-full rounded-md bg-gradient-to-r from-amber-600 to-amber-800 py-2 text-center font-medium text-white shadow-sm transition-colors hover:from-amber-700 hover:to-amber-900"
           >
             Ver Detalles
-          </a>
+          </Link>
         </div>
       </div>
     </div>
