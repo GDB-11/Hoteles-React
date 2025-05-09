@@ -12,9 +12,6 @@ import {
 
 // Definición del componente como función declarativa
 function Contact() {
-<<<<<<< HEAD
-  return <></>;
-=======
   // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     name: "",
@@ -140,7 +137,6 @@ function Contact() {
       </section>
     </div>
   );
->>>>>>> 2a91680618daadae53d045365064ea92a744ed4b
 }
 
 export default Contact;
