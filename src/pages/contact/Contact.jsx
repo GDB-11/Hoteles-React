@@ -1,12 +1,23 @@
 // Importamos los hooks y componentes necesarios
-import { useState } from 'react'; // Necesitamos importar useState incluso si no importamos React
-import './Contact.css'; // Estilos del componente
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { useState } from "react"; // Necesitamos importar useState incluso si no importamos React
+import "./Contact.css"; // Estilos del componente
+import {
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 // Definición del componente como función declarativa
 function Contact() {
   // Estado para almacenar los datos del formulario
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   // Estado para mostrar mensaje de éxito al enviar
   const [submitted, setSubmitted] = useState(false);
 
@@ -54,8 +65,8 @@ function Contact() {
       <section className="contact-main">
         {/* Mapa de Google Maps */}
         <div className="map">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb= !1m18!1m12!1m3!1d3732.892589662029!2d-71.96663128502669!3d-13.519446889701414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916dd8a545960c47%3A0x5190f3e03e8d6b0!2sCusco!5e0!3m2!1ses!2spe!4v1630000000000!5m2!1ses!2spe"
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.892589662029!2d-71.96663128502669!3d-13.519446889701414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916dd8a545960c47%3A0x5190f3e03e8d6b0!2sCusco!5e0!3m2!1ses!2spe!4v1630000000000!5m2!1ses!2spe"
             allowFullScreen=""
             loading="lazy"
           ></iframe>
@@ -65,7 +76,9 @@ function Contact() {
         <div className="contact-form">
           <h2>Escríbenos</h2>
           {/* Mensaje de éxito al enviar */}
-          {submitted && <p className="success-message">¡Mensaje enviado con éxito!</p>}
+          {submitted && (
+            <p className="success-message">¡Mensaje enviado con éxito!</p>
+          )}
           <form onSubmit={handleSubmit}>
             {/* Campo Nombre */}
             <input
@@ -101,12 +114,25 @@ function Contact() {
 
       {/* Redes sociales */}
       <section className="social-media">
-        <h3>Síguenos</h3>
+        <h3>Síguenos en nuestras Redes sociales:</h3>
         <div className="social-icons">
-          {/* Iconos de redes sociales (enlaces ficticios) */}
-          <a href="#facebook"><FaFacebook /></a>
-          <a href="#instagram"><FaInstagram /></a>
-          <a href="#whatsapp"><FaWhatsapp /></a>
+          {/* Facebook */}
+          <a href="#facebook" className="social-link">
+            <FaFacebook className="social-icon" />
+            <span className="social-text">Facebook</span>
+          </a>
+
+          {/* Instagram */}
+          <a href="#instagram" className="social-link">
+            <FaInstagram className="social-icon" />
+            <span className="social-text">Instagram</span>
+          </a>
+
+          {/* WhatsApp */}
+          <a href="#whatsapp" className="social-link">
+            <FaWhatsapp className="social-icon" />
+            <span className="social-text">WhatsApp</span>
+          </a>
         </div>
       </section>
     </div>

@@ -8,14 +8,36 @@
   
   /* Sección Hero (imagen de fondo con texto) */
   .hero {
-    background: url('https://source.unsplash.com/featured/?peru ,hospitality') center/cover no-repeat; /* Imagen aleatoria de Unsplash */
-    height: 300px; /* Altura fija */
-    display: flex; /* Centrado con Flexbox */
-    align-items: center; /* Vertical */
-    justify-content: center; /* Horizontal */
-    color: white; /* Color del texto */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para mejorar legibilidad */
-    margin-bottom: 2rem; /* Espacio debajo */
+    background: url('https://i.ytimg.com/vi/SU1X-BlMPWg/maxresdefault.jpg') center/cover no-repeat; 
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 2rem;
+    width: 100vw; /* Ancho completo de la ventana */
+    position: relative; /* Posicionamiento relativo */
+    left: 50%; /* Mover 50% desde la izquierda */
+    transform: translateX(-50%); /* Centrar exactamente */
+    text-shadow: 2px 2px 4px #000000;
+
+  }
+  .hero-content {
+    text-align: center;
+    width: 100%;
+  }
+  .hero h1{
+    font-size: 30px;
+    text-shadow: 2px 2px 4px #000000;
+
+    
+  }
+  .hero p{
+    font-size: 25px;
+    text-shadow: 2px 2px 4px #000000;
+
+    
   }
   
   /* Tarjetas de información (dirección, teléfono, etc.) */
@@ -23,6 +45,9 @@
     display: flex; /* Icono y texto alineados */
     align-items: center; /* Centrado vertical */
     margin: 1rem 0; /* Espaciado entre tarjetas */
+    font-weight: bold;
+    color: #78350F;
+
   }
   
   /* Estilo de los iconos */
@@ -71,7 +96,7 @@
   
   /* Botón de enviar */
   .contact-form button {
-    background: #c8a248; /* Fondo dorado */
+    background: #97400e; /* Fondo dorado */
     color: white; /* Texto blanco */
     padding: 0.8rem 2rem; /* Relleno */
     border: none; /* Sin borde */
@@ -85,21 +110,50 @@
     margin-bottom: 1rem; /* Espacio debajo */
   }
   
-  /* Redes sociales */
-  .social-media {
-    text-align: center; /* Centrado de texto */
-    margin-top: 3rem; /* Espacio arriba */
-  }
-  
-  /* Iconos de redes sociales */
-  .social-icons a {
-    margin: 0 1rem; /* Espaciado horizontal */
-    color: #555; /* Color gris oscuro */
-    font-size: 1.5rem; /* Tamaño grande */
-    transition: color 0.3s; /* Transición suave al pasar el ratón */
-  }
-  
-  /* Cambiar color al pasar el ratón */
-  .social-icons a:hover {
-    color: #c8a248; /* Dorado al hacer hover */
-  }
+/* Redes sociales */
+.social-media {
+  text-align: center;
+  margin-top: 3rem;
+}
+.social-media h3{
+  font-size: 30px;
+  margin-bottom: 25px;
+  font-family: 'Roboto', sans-serif;
+  color: #b54708;
+}
+
+/* Contenedor de los íconos */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que se organicen en filas si el espacio es reducido */
+  gap: 2rem; /* Espacio entre los elementos */
+}
+
+/* Cada enlace de red social */
+.social-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #555;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+/* Icono */
+.social-icon {
+  font-size: 2rem; /* Tamaño mayor para los iconos */
+  margin-bottom: 0.5rem;
+}
+
+/* Texto */
+.social-text {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+/* Hover */
+.social-link:hover {
+  color: #c8a248; /* Color dorado al pasar el ratón */
+}
