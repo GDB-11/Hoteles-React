@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
-import { calculateNights, isSameDate } from "../../helpers/DateHelper";
+import { isSameDate } from "../../helpers/DateHelper";
 
-const RangeDatePicker = ({
+const DatePicker = ({
   value = { startDate: null, endDate: null },
   onChange,
   className = "",
@@ -21,18 +21,8 @@ const RangeDatePicker = ({
 
   // Nombres de los meses
   const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
   ];
 
   // Nombres de los días de la semana
@@ -128,6 +118,7 @@ const RangeDatePicker = ({
     }
 
     // Llamar a la función onChange externa con el nuevo rango
+    console.log("DatePicker onChange:", newRange);
     if (onChange) {
       onChange(newRange);
     }
@@ -144,10 +135,6 @@ const RangeDatePicker = ({
 
     if (!value.endDate) {
       return date.getTime() === value.startDate.getTime();
-    }
-
-    if (!value.endDate) {
-      return isSameDate(date, value.startDate);
     }
 
     return date >= value.startDate && date <= value.endDate;
@@ -186,21 +173,6 @@ const RangeDatePicker = ({
     if (onChange) {
       onChange({ startDate: null, endDate: null });
     }
-  };
-
-  // Función para aplicar la selección
-  const handleApply = () => {
-    if (value.startDate && !value.endDate) {
-      // Si solo hay fecha de inicio, establecer un rango de 3 días como ejemplo
-      const endDate = new Date(value.startDate);
-      endDate.setDate(endDate.getDate() + 3);
-
-      if (onChange) {
-        onChange({ ...value, endDate });
-      }
-    }
-
-    setIsOpen(false);
   };
 
   // Esta seccion cierra el calendario al hacer clic fuera
@@ -346,7 +318,7 @@ const RangeDatePicker = ({
           </div>
 
           {/* Botones de acción */}
-          <div className="mt-4 flex justify-between">
+          <div className="mt-4 flex justify-end">
             <button
               type="button"
               onClick={handleClear}
@@ -354,41 +326,9 @@ const RangeDatePicker = ({
             >
               Limpiar
             </button>
-            <button
-              type="button"
-              onClick={handleApply}
-              className="cursor-pointer rounded-md bg-blue-700 px-4 py-1 text-sm text-white hover:bg-blue-900"
-            >
-              Aplicar
-            </button>
           </div>
         </div>
       )}
-    </div>
-  );
-};
-
-// Componente completo
-const DatePicker = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: null,
-    endDate: null,
-  });
-
-  const handleDateChange = (newRange) => {
-    setDateRange(newRange);
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center rounded-lg">
-      {/* Uso del componente */}
-      <div className="w-full max-w-md">
-        <RangeDatePicker
-          value={dateRange}
-          onChange={handleDateChange}
-          placeholder="Elige tus fechas"
-        />
-      </div>
     </div>
   );
 };

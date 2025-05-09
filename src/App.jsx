@@ -7,6 +7,7 @@ import NavBar from "./components/shared/NavBar";
 import Footer from "./components/shared/Footer";
 import Contact from "./pages/contact/Contact";
 import Offers from "./pages/offers/Offers";
+import RoomDetail from "./pages/room/RoomDetail";
 
 // Componente que maneja la carga inicial de datos
 function DataInitializer({ children }) {
@@ -32,6 +33,7 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/contacto" element={<Contact />} />
             <Route path="/promociones" element={<Offers />} />
+            <Route path="/habitacion/:id" element={<RoomDetail />} />
             <Route
               path="*"
               element={

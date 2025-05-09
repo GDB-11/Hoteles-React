@@ -16,25 +16,6 @@ function NavBar() {
     },
   });
 
-  // Lista de sedes
-  // const sedes = [
-  //   "Sol de Surco",
-  //   "Mar de Miraflores",
-  //   "Fortaleza Chachapoyas",
-  //   "Rio Utcubamba Bagua",
-  //   "Palmeras Bagua Grande",
-  //   "Cordillera Blanca Huaraz"
-  // ];
-
-  // // Lista de tipos de habitación
-  // const tiposHabitacion = [
-  //   "Standard Simple",
-  //   "Standard Doble",
-  //   "Superior Queen",
-  //   "Superior King",
-  //   "Junior Suite California King",
-  // ];
-
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "Promociones", href: "/promociones" },
@@ -69,7 +50,7 @@ function NavBar() {
     <>
       <nav className="relative z-10 flex w-full items-center justify-between bg-gradient-to-r from-amber-700 to-amber-900 px-8 py-4 text-amber-50 shadow-lg">
         {/* Sección Izquierda: Logo/Nombre de la Marca */}
-        <div className="flex items-center">
+        <a className="flex items-center" href="/">
           <div className="mr-2 h-12 w-12 rounded-full bg-gradient-to-b from-amber-950 to-transparent">
             <svg
               viewBox="0 0 128 128"
@@ -169,7 +150,7 @@ function NavBar() {
               Tradición Peruana de Hospitalidad
             </p>
           </div>
-        </div>
+        </a>
 
         {/* Sección Central: Links de Navegación con Animación */}
         <div className="flex items-center space-x-8">
