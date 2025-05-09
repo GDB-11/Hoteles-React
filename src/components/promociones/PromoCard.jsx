@@ -4,14 +4,14 @@ import colors from "./../../helpers/ColorsHelper.js";
 import { formatToTwoDecimals } from "../../helpers/NumberHelper.js";
 
 const PromoCard = ({
-    title = "Escapada de Fin de Semana en Cusco",
-    image = "/api/placeholder/400/300",
-    originalPricePerNight = 650,
-    discountPercent = 0.25,
-    expirationDate = "2025-06-30T23:59:59",
-    nights = 2,
-    location = "Cusco",
-    description = "Disfruta de una experiencia única en el corazón de la ciudad imperial. Incluye desayuno buffet y late check-out."
+    title = "",
+    image = "",
+    originalPricePerNight = 0,
+    discountPercent = 0,
+    expirationDate = "",
+    nights = 0,
+    location = "",
+    description = ""
 }) => {
     const originalTotalPrice = originalPricePerNight * nights;
     const discountedPrice = originalTotalPrice * (1 - discountPercent);
