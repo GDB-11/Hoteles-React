@@ -1,6 +1,6 @@
-// Importamos los hooks y componentes necesarios
-import { useState } from "react"; // Necesitamos importar useState incluso si no importamos React
-import "./Contact.css"; // Estilos del componente
+
+import { useState } from "react"; 
+import "./Contact.css"; 
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -18,7 +18,7 @@ function Contact() {
     email: "",
     message: "",
   });
-  // Estado para mostrar mensaje de éxito al enviar
+
   const [submitted, setSubmitted] = useState(false);
 
   // Función para actualizar el estado cuando el usuario escribe en los campos
@@ -29,7 +29,7 @@ function Contact() {
   // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault(); // Evita recargar la página
-    // Simula un envío exitoso (en un proyecto real aquí iría una API)
+    // Esto es para que podamos simular un envio exitoso debido a que no estamos usando backend
     setSubmitted(true);
     // Limpia el mensaje después de 3 segundos
     setTimeout(() => setSubmitted(false), 3000);
@@ -45,7 +45,7 @@ function Contact() {
         </div>
       </section>
 
-      {/* Información de contacto (dirección, teléfono, correo) */}
+      {/* Información de contacto  */}
       <section className="contact-info">
         <div className="info-card">
           <FaMapMarkerAlt className="icon" /> {/* Icono de ubicación */}

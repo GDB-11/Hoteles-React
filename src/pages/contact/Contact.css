@@ -1,12 +1,12 @@
-/* Contenedor principal del componente */
+
 .contact-container {
-    font-family: 'Roboto', sans-serif; /* Fuente elegante */
-    max-width: 1200px; /* Ancho máximo */
-    margin: 0 auto; /* Centrado */
-    padding: 2rem; /* Espaciado interior */
+    font-family: 'Roboto', sans-serif;
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 2rem;
   }
   
-  /* Sección Hero (imagen de fondo con texto) */
+ 
   .hero {
     background: url('https://i.ytimg.com/vi/SU1X-BlMPWg/maxresdefault.jpg') center/cover no-repeat; 
     height: 300px;
@@ -16,10 +16,10 @@
     color: white;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     margin-bottom: 2rem;
-    width: 100vw; /* Ancho completo de la ventana */
-    position: relative; /* Posicionamiento relativo */
-    left: 50%; /* Mover 50% desde la izquierda */
-    transform: translateX(-50%); /* Centrar exactamente */
+    width: 100vw; 
+    position: relative; 
+    left: 50%; 
+    transform: translateX(-50%); 
     text-shadow: 2px 2px 4px #000000;
 
   }
@@ -28,7 +28,7 @@
     width: 100%;
   }
   .hero h1{
-    font-size: 30px;
+    font-size: 40px;
     text-shadow: 2px 2px 4px #000000;
 
     
@@ -40,74 +40,72 @@
     
   }
   
-  /* Tarjetas de información (dirección, teléfono, etc.) */
+  
   .info-card {
-    display: flex; /* Icono y texto alineados */
-    align-items: center; /* Centrado vertical */
-    margin: 1rem 0; /* Espaciado entre tarjetas */
+    display: flex; 
+    align-items: center; 
+    margin: 1rem 0; 
     font-weight: bold;
     color: #78350F;
 
   }
   
-  /* Estilo de los iconos */
+
   .icon {
-    color: #c8a248; /* Color dorado (temática peruana) */
-    margin-right: 1rem; /* Espacio entre icono y texto */
-    font-size: 1.5rem; /* Tamaño del icono */
+    color: #c8a248; 
+    margin-right: 1rem; 
+    font-size: 1.5rem; 
   }
   
-  /* Contenedor principal: mapa y formulario lado a lado */
+
   .contact-main {
-    display: grid; /* Grid para layout */
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-    gap: 2rem; /* Espacio entre elementos */
-    margin-top: 2rem; /* Espacio arriba */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 2rem; 
+    margin-top: 2rem; 
   }
   
-  /* Estilo del mapa */
+  
   .map iframe {
-    width: 100%; /* Llenar el contenedor */
-    height: 400px; /* Altura fija */
-    border: none; /* Sin borde */
+    width: 100%; 
+    height: 400px; 
+    border: none; 
   }
-  
-  /* Formulario de contacto */
   .contact-form {
-    background: #f8f8f8; /* Fondo claro */
-    padding: 2rem; /* Espaciado interior */
-    border-radius: 8px; /* Bordes redondeados */
+    background: #f8f8f8; 
+    padding: 2rem; 
+    border-radius: 8px; 
   }
   
-  /* Título del formulario */
+ 
   .contact-form h2 {
-    margin-bottom: 1rem; /* Espacio debajo */
+    margin-bottom: 1rem; 
   }
   
-  /* Campos de entrada y área de texto */
+
   .contact-form input,
   .contact-form textarea {
-    width: 100%; /* Llenar el contenedor */
-    padding: 0.8rem; /* Relleno */
-    margin: 0.5rem 0 1rem; /* Espaciado */
-    border: 1px solid #ddd; /* Borde gris claro */
-    border-radius: 4px; /* Bordes redondeados */
+    width: 100%; 
+    padding: 0.8rem; 
+    margin: 0.5rem 0 1rem; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
   }
   
   /* Botón de enviar */
   .contact-form button {
-    background: #97400e; /* Fondo dorado */
-    color: white; /* Texto blanco */
-    padding: 0.8rem 2rem; /* Relleno */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cursor de mano */
+    background: #97400e; 
+    color: white; 
+    padding: 0.8rem 2rem; 
+    border: none; 
+    border-radius: 4px;
+    cursor: pointer; 
   }
   
   /* Mensaje de éxito */
   .success-message {
-    color: green; /* Verde para éxito */
-    margin-bottom: 1rem; /* Espacio debajo */
+    color: green; 
+    margin-bottom: 1rem; 
   }
   
 /* Redes sociales */
@@ -120,14 +118,15 @@
   margin-bottom: 25px;
   font-family: 'Roboto', sans-serif;
   color: #b54708;
+  font-weight: bold;
 }
 
 /* Contenedor de los íconos */
 .social-icons {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Permite que se organicen en filas si el espacio es reducido */
-  gap: 2rem; /* Espacio entre los elementos */
+  flex-wrap: wrap;
+  gap: 2rem; 
 }
 
 /* Cada enlace de red social */
@@ -143,7 +142,7 @@
 
 /* Icono */
 .social-icon {
-  font-size: 2rem; /* Tamaño mayor para los iconos */
+  font-size: 2rem; 
   margin-bottom: 0.5rem;
 }
 
@@ -155,5 +154,6 @@
 
 /* Hover */
 .social-link:hover {
-  color: #c8a248; /* Color dorado al pasar el ratón */
+  color: #c8a248; 
 }
+  
