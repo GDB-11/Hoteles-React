@@ -241,7 +241,7 @@ function NavBar() {
           ))}
           
           {/* Mobile Reservations */}
-          <div className="mt-4 flex items-center justify-between border-t border-amber-700 pt-4">
+          <div className="mt-4 flex items-center justify-between border-t text-amber-100 border-amber-700 pt-4">
             <div className="flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
