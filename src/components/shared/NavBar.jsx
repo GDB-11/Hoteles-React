@@ -1,310 +1,178 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Clock from "./Clock";
-import RangeDatePicker from "./RangeDatePicker";
-import { useSedeData, useHotelData } from "../../contexts/ApiContext";
+import NavBarLogo from "./NavBarLogo";
+import { useReservation } from "../../contexts/ApiContext";
+import { Link } from "react-router-dom";
+import { formatToTwoDecimals } from "../../helpers/NumberHelper";
+import colors from "../../helpers/ColorsHelper";
 
 function NavBar() {
-  const { sedes, isLoading: isSedeLoading } = useSedeData();
-  const { habitaciones, isLoading: isHotelLoading } = useHotelData();
-  const [reservationCount, setReservationCount] = useState(0);
-  const [searchParams, setSearchParams] = useState({
-    sede: "",
-    tipoHabitacion: "",
-    fechas: {
-      startDate: null,
-      endDate: null,
-    },
-  });
-
-  // Lista de sedes
-  // const sedes = [
-  //   "Sol de Surco",
-  //   "Mar de Miraflores",
-  //   "Fortaleza Chachapoyas",
-  //   "Rio Utcubamba Bagua",
-  //   "Palmeras Bagua Grande",
-  //   "Cordillera Blanca Huaraz"
-  // ];
-
-  // // Lista de tipos de habitación
-  // const tiposHabitacion = [
-  //   "Standard Simple",
-  //   "Standard Doble",
-  //   "Superior Queen",
-  //   "Superior King",
-  //   "Junior Suite California King",
-  // ];
-
+  const { reservations, removeReservation, clearReservations, getReservationCount } = useReservation();
+  const reservationCount = getReservationCount();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "Promociones", href: "/promociones" },
     { name: "Contacto", href: "/contacto" },
   ];
+  
+  // Cerrar el dropdown cuando se hace clic fuera de él
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
-  // Maneja cambios en los selects
-  const handleSelectChange = (e) => {
-    const { name, value } = e.target;
-    setSearchParams((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const formatDate = (date) => {
+    if (!date) return "";
+    return new Date(date).toLocaleDateString('es-PE', {
+      day: '2-digit',
+      month: '2-digit'
+    });
   };
-
-  // Maneja cambios en las fechas
-  const handleDateChange = (newRange) => {
-    setSearchParams((prev) => ({
-      ...prev,
-      fechas: newRange,
-    }));
-  };
-
-  // Maneja el envío del formulario
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Búsqueda realizada con parámetros:", searchParams);
-    // Aquí podrías hacer un fetch a tu API o navegar a una página de resultados
+  
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
     <>
-      <nav className="relative z-10 flex w-full items-center justify-between bg-gradient-to-r from-amber-700 to-amber-900 px-8 py-4 text-amber-50 shadow-lg">
+      <nav className="sticky z-50 flex w-full items-center justify-between bg-gradient-to-r from-amber-700 to-amber-900 px-8 py-4 text-amber-50 shadow-lg">
         {/* Sección Izquierda: Logo/Nombre de la Marca */}
-        <div className="flex items-center">
-          <div className="mr-2 h-12 w-12 rounded-full bg-gradient-to-b from-amber-950 to-transparent">
-            <svg
-              viewBox="0 0 128 128"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              aria-hidden="true"
-              role="img"
-              class="iconify iconify--noto"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <path
-                d="M3.68 43.11l17.03.21s-.07-10.03 0-10.78c.07-.74.67-.97 1.63-.97h11.52s4.21-19.72 30.67-19.58c25.08.13 29.89 19.36 29.89 19.36s11.22.15 11.96.15s1.11.59 1.11 1.41v10.26h16.78l-.8 1.93l-4.9 8.25l-109.24-.01l-5.65-10.23z"
-                fill="#fadbbc"
-              ></path>
-              <path
-                d="M20.6 51.7l-10.7.01s-4.53-7.4-4.93-7.98c-.53-.75-1.72-.63-2.11-.57c-.67.09-.14 1.17.61 2.25s3.94 6.43 3.94 6.43v72.02h113.22l.09-71.78s3.98-6.54 4.37-7.19s.98-1.69.26-1.73c-.78-.04-1.68-.18-2.45 1.03c-.88 1.39-4.58 7.16-4.58 7.16h-10.8V40.17h-16.6s-.59-22.84-27.15-22.68c-26.55.17-26.25 22.66-26.25 22.66H20.74c0 .01-.14 11.35-.14 11.55z"
-                fill="#b99277"
-              ></path>
-              <path fill="#e2c090" d="M9.86 56.19h10.59v44.28l-10.68.1z"></path>
-              <path
-                d="M23.14 44.67v44.38l81.98-.09v-44.1H85.81s1.38-22.41-21.45-22.65c-23.67-.26-21.91 22.28-21.91 22.28l-19.31.18z"
-                fill="#e2c090"
-              ></path>
-              <path
-                d="M42.45 44.49l-6.16.05v79.36h6.37c.01 0-.15-79.41-.21-79.41z"
-                fill="#fadbbc"
-              ></path>
-              <path
-                d="M85.81 44.86h6.39l-.01 79.01h-6.67s.45-79.37.29-79.01z"
-                fill="#fadbbc"
-              ></path>
-              <path
-                d="M118.25 56.56h-10.32v43.9h10.22l.1-43.9z"
-                fill="#e2c090"
-              ></path>
-              <path
-                fill="#ffa828"
-                d="M50.22 99.45l-.03 24.75H78.2l.03-25.51z"
-              ></path>
-              <path fill="#546f7a" d="M52.8 102.66v18.63h9.88v-18.57z"></path>
-              <path
-                fill="#546f7a"
-                d="M65.51 102.85h9.76l.25 18.44h-9.94z"
-              ></path>
-              <path
-                d="M20.69 99.03c0 .31.08 26.61.23 26.84c.15.23 7.43.31 7.74 0c.08-.08 0-27 0-27l-7.97.16z"
-                fill="#faddc3"
-              ></path>
-              <path
-                d="M99.67 99.27s-.29 25.44-.08 26.07c.08.23 7.33.43 7.74.15c.23-.15.23-26.3.23-26.3l-7.89.08z"
-                fill="#faddc3"
-              ></path>
-              <path
-                d="M113.79 116.93c-1.48-.06-4.56-1.43-4.25-6.26c.3-4.73 2.66-7.38 4.25-7.44s4.25 4.08 4.25 7.56c0 4.02-1.65 6.25-4.25 6.14z"
-                fill="#2f7c31"
-              ></path>
-              <path
-                d="M14.67 103.29c-1.49.06-4.48 3.96-4.37 8.33c.12 4.61 2.6 5.67 4.19 5.79c1.59.12 4.37-1.83 4.25-6.08s-2.59-8.1-4.07-8.04z"
-                fill="#2f7c31"
-              ></path>
-              <path
-                d="M10.96 116.64c-.16.4.06 7.23.06 7.23l6.73-.01s.11-6.99.11-7.23c.01-.23-6.82-.19-6.9.01z"
-                fill="#e2c090"
-              ></path>
-              <path
-                d="M110.18 116.34c-.06-.3 6.91-.24 6.97-.06c.13.39-.1 7.62-.1 7.62h-6.85l-.02-7.56z"
-                fill="#e2c090"
-              ></path>
-              <path
-                d="M19.42 91.91s.07 5.86.12 6.83s-.11 1.89 2.06 1.91c2.13.02 84.69.04 85.76.04c1.07 0 2.28-.61 2.38-2.14c.1-1.52.05-6.43.05-6.43l-46.36-1.6l-44.01 1.39z"
-                fill="#af0c1a"
-              ></path>
-              <path
-                d="M109.79 92.12s.05-2.2.05-2.88c0-.69-.61-1.22-2.37-1.26c-1.76-.04-84.52-.15-86.24-.15s-1.76.9-1.84 1.74c-.08.84.02 2.34.02 2.34l90.38.21z"
-                fill="#fadbbc"
-              ></path>
-              <path fill="#6c1507" d="M46.9 37.64h8.64v45.64H46.9z"></path>
-              <path fill="#6c1507" d="M73.05 37.64h8.64v45.64h-8.64z"></path>
-              <path fill="#6c1507" d="M54.17 56.37h20v9h-20z"></path>
-              <path fill="#536f79" d="M95.68 46.61h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M95.65 60.63h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M95.65 74.9h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M26.74 47.06h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M26.71 61.08h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M26.71 75.35h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M11.91 61.16h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M11.91 75.42h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M109.94 60.67h6.38v10.06h-6.38z"></path>
-              <path fill="#536f79" d="M109.94 74.94h6.38V85h-6.38z"></path>
-            </svg>
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-amber-50">
-              HOSPEDAJE Y SABOR
-            </h1>
-            <p className="text-xs text-amber-50">
-              Tradición Peruana de Hospitalidad
-            </p>
-          </div>
-        </div>
-
+        <NavBarLogo />
+        
         {/* Sección Central: Links de Navegación con Animación */}
         <div className="flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.href}
               className="group relative inline-block py-2 text-sm font-medium text-amber-100 transition-colors duration-300 hover:text-white"
             >
               <span>{link.name}</span>
               <span className="absolute bottom-0 left-0 block h-0.5 w-0 bg-white transition-all duration-400 ease-out group-hover:w-full"></span>
-            </a>
+            </Link>
           ))}
         </div>
-
+        
         {/* Sección Derecha: Contador de Reservas y Reloj */}
         <div className="flex items-center space-x-6">
-          {/* Contador de Reservas */}
-          <button
-            type="button"
-            className="relative flex items-center text-amber-100 transition-colors duration-300 hover:text-white"
-            aria-label={`Ver ${reservationCount} reservas`}
-          >
-            {/* Ícono simple de "ticket" o "reserva" (SVG) */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
+          {/* Contador de Reservas con Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              className="relative flex items-center text-amber-100 transition-colors duration-300 hover:text-white"
+              aria-label={`Ver ${reservationCount} reservas`}
+              onClick={toggleDropdown}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
-              />
-            </svg>
-
-            {/* Badge con el número de reservas */}
-            {
-              <span className="absolute -top-2 -right-3 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white shadow-sm">
-                {reservationCount}
-              </span>
-            }
-          </button>
-
+              {/* Ícono simple de "ticket" o "reserva" (SVG) */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
+                />
+              </svg>
+              {/* Badge con el número de reservas */}
+              {reservationCount > 0 && (
+                <span className="absolute -top-2 -right-3 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white shadow-sm">
+                  {reservationCount}
+                </span>
+              )}
+            </button>
+            
+            {/* Dropdown de Reservas */}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <div className="px-4 py-2 border-b border-gray-200">
+                    <h3 className="font-bold text-gray-900">Mis Reservas</h3>
+                  </div>
+                  
+                  {reservations.length === 0 ? (
+                    <div className="px-4 py-3 text-sm text-gray-500 text-center">
+                      No tienes reservas activas
+                    </div>
+                  ) : (
+                    <>
+                      <div className="max-h-80 overflow-y-auto">
+                        {reservations.map((reservation) => (
+                          <div key={reservation.id} className="px-4 py-3 border-b border-gray-200 last:border-b-0">
+                            <div className="flex justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-gray-900">{reservation.roomName}</p>
+                                <p className="text-xs text-gray-600">{reservation.location}</p>
+                                <p className="text-xs text-gray-600">
+                                  {formatDate(reservation.dateRange.startDate)} - {formatDate(reservation.dateRange.endDate)}
+                                </p>
+                                <p className="text-xs text-gray-600">
+                                  {reservation.guests} {reservation.guests === 1 ? "huésped" : "huéspedes"}, {reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'}
+                                </p>
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <p className="text-sm font-bold" style={{ color: colors.primary }}>
+                                  S/ {formatToTwoDecimals(reservation.totalPrice)}
+                                </p>
+                                <button
+                                  onClick={() => removeReservation(reservation.id)}
+                                  className="text-xs text-red-600 hover:text-red-800 mt-1"
+                                >
+                                  Eliminar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="px-4 py-3 bg-gray-50">
+                        <div className="flex justify-between items-center mb-2">
+                          <p className="text-sm font-medium text-gray-900">Total:</p>
+                          <p className="text-sm font-bold" style={{ color: colors.primary }}>
+                            S/ {formatToTwoDecimals(
+                              reservations.reduce((total, r) => total + r.totalPrice, 0)
+                            )}
+                          </p>
+                        </div>
+                        
+                        <button
+                          onClick={clearReservations}
+                          className="w-full px-4 py-2 text-sm font-medium text-white rounded-md"
+                          style={{ backgroundColor: colors.primary }}
+                        >
+                          Limpiar todas
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          
           {/* Separador visual opcional */}
           <div className="h-6 w-px bg-amber-600"></div>
-
+          
           {/* Reloj */}
           <Clock />
         </div>
       </nav>
-
-      {/* Formulario de búsqueda */}
-      <div className="bg-amber-200 px-8 py-4 shadow-md">
-        <form onSubmit={handleSearch} className="mx-auto max-w-6xl">
-          <div className="flex flex-col space-y-4 md:flex-row md:items-end md:space-y-0 md:space-x-4">
-            {/* Selección de Sede */}
-            <div className="flex-1">
-              <label
-                htmlFor="sede"
-                className="mb-1 block text-sm font-medium text-amber-900"
-              >
-                Sede
-              </label>
-              <select
-                id="sede"
-                name="sede"
-                value={searchParams.sede}
-                onChange={handleSelectChange}
-                className="w-full cursor-pointer rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              >
-                <option value="">Todas las sedes</option>
-                {sedes.map((sedes) => (
-                  <option key={sedes} value={sedes}>
-                    {sedes}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Selección de Tipo de Habitación */}
-            <div className="flex-1">
-              <label
-                htmlFor="tipoHabitacion"
-                className="mb-1 block text-sm font-medium text-amber-900"
-              >
-                Tipo de Habitación
-              </label>
-              <select
-                id="tipoHabitacion"
-                name="tipoHabitacion"
-                value={searchParams.tipoHabitacion}
-                onChange={handleSelectChange}
-                className="w-full cursor-pointer rounded-lg border border-amber-300 bg-white p-3 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              >
-                <option value="">Todos los tipos</option>
-                {habitaciones.map((habitacion) => (
-                  <option key={habitacion.id} value={habitacion.nombre}>
-                    {habitacion.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Selección de Fechas */}
-            <div className="flex-1">
-              <label
-                htmlFor="fechas"
-                className="mb-1 block text-sm font-medium text-amber-900"
-              >
-                Fechas de Estadía
-              </label>
-              <RangeDatePicker
-                id="fechas"
-                value={searchParams.fechas}
-                onChange={handleDateChange}
-                placeholder="Selecciona tus fechas"
-              />
-            </div>
-
-            {/* Botón de Búsqueda */}
-            <div>
-              <button
-                type="submit"
-                className="w-full cursor-pointer rounded-lg bg-amber-700 px-6 py-3 font-medium text-white shadow-sm transition-colors duration-300 hover:bg-amber-800 focus:ring-2 focus:ring-amber-500 focus:outline-none md:w-auto"
-              >
-                Buscar Habitaciones
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
     </>
   );
 }
